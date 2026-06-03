@@ -1,0 +1,117 @@
+{
+  "version": 3,
+  "targets": {
+    "net9.0": {
+      "DistributedJob.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "DistributedJob.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DistributedJob.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DistributedJob.Application.dll": {}
+        }
+      },
+      "DistributedJob.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/DistributedJob.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DistributedJob.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DistributedJob.Application/1.0.0": {
+      "type": "project",
+      "path": "../DistributedJob.Application/DistributedJob.Application.csproj",
+      "msbuildProject": "../DistributedJob.Application/DistributedJob.Application.csproj"
+    },
+    "DistributedJob.Domain/1.0.0": {
+      "type": "project",
+      "path": "../DistributedJob.Domain/DistributedJob.Domain.csproj",
+      "msbuildProject": "../DistributedJob.Domain/DistributedJob.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net9.0": [
+      "DistributedJob.Application >= 1.0.0",
+      "DistributedJob.Domain >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/Users/shivaniderkar/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/DistributedJob.Infrastructure.csproj",
+      "projectName": "DistributedJob.Infrastructure",
+      "projectPath": "/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/DistributedJob.Infrastructure.csproj",
+      "packagesPath": "/Users/shivaniderkar/.nuget/packages/",
+      "outputPath": "/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/shivaniderkar/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net9.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "projectReferences": {
+            "/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/DistributedJob.Application.csproj": {
+              "projectPath": "/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/DistributedJob.Application.csproj"
+            },
+            "/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/DistributedJob.Domain.csproj": {
+              "projectPath": "/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/DistributedJob.Domain.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.200"
+    },
+    "frameworks": {
+      "net9.0": {
+        "targetAlias": "net9.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

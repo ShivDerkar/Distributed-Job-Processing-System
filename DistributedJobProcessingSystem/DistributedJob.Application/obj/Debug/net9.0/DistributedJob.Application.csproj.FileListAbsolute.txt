@@ -1,0 +1,15 @@
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/bin/Debug/net9.0/DistributedJob.Application.deps.json
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/bin/Debug/net9.0/DistributedJob.Application.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/bin/Debug/net9.0/DistributedJob.Application.pdb
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/bin/Debug/net9.0/DistributedJob.Domain.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/bin/Debug/net9.0/DistributedJob.Domain.pdb
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/DistributedJob.Application.csproj.AssemblyReference.cache
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/DistributedJob.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/DistributedJob.Application.AssemblyInfoInputs.cache
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/DistributedJob.Application.AssemblyInfo.cs
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/DistributedJob.Application.csproj.CoreCompileInputs.cache
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/Distribu.102AC984.Up2Date
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/DistributedJob.Application.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/refint/DistributedJob.Application.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/DistributedJob.Application.pdb
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/ref/DistributedJob.Application.dll

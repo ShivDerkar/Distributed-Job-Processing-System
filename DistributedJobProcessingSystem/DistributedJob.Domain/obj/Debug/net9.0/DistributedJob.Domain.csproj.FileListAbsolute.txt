@@ -1,0 +1,11 @@
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/bin/Debug/net9.0/DistributedJob.Domain.deps.json
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/bin/Debug/net9.0/DistributedJob.Domain.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/bin/Debug/net9.0/DistributedJob.Domain.pdb
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/obj/Debug/net9.0/DistributedJob.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/obj/Debug/net9.0/DistributedJob.Domain.AssemblyInfoInputs.cache
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/obj/Debug/net9.0/DistributedJob.Domain.AssemblyInfo.cs
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/obj/Debug/net9.0/DistributedJob.Domain.csproj.CoreCompileInputs.cache
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/obj/Debug/net9.0/DistributedJob.Domain.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/obj/Debug/net9.0/refint/DistributedJob.Domain.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/obj/Debug/net9.0/DistributedJob.Domain.pdb
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Domain/obj/Debug/net9.0/ref/DistributedJob.Domain.dll

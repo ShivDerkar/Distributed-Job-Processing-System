@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "3km68SwWJAGzPyltQvn8jCsbeENLuGe+XArGTKkmktM=",
+  "Source": "DistributedJob.Api",
+  "BasePath": "_content/DistributedJob.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
