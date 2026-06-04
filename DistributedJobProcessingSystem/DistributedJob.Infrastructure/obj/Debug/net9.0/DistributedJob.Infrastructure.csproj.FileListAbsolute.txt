@@ -15,3 +15,4 @@
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/refint/DistributedJob.Infrastructure.dll
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.pdb
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/ref/DistributedJob.Infrastructure.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.sourcelink.json

@@ -13,3 +13,4 @@
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/refint/DistributedJob.Application.dll
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/DistributedJob.Application.pdb
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/ref/DistributedJob.Application.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Application/obj/Debug/net9.0/DistributedJob.Application.sourcelink.json
