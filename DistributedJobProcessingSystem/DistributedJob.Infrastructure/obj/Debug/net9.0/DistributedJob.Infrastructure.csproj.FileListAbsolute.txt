@@ -1,3 +1,9 @@
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.csproj.AssemblyReference.cache
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.AssemblyInfoInputs.cache
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.AssemblyInfo.cs
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.sourcelink.json
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/bin/Debug/net9.0/DistributedJob.Infrastructure.deps.json
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/bin/Debug/net9.0/DistributedJob.Infrastructure.dll
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/bin/Debug/net9.0/DistributedJob.Infrastructure.pdb
@@ -5,14 +11,8 @@
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/bin/Debug/net9.0/DistributedJob.Domain.dll
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/bin/Debug/net9.0/DistributedJob.Application.pdb
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/bin/Debug/net9.0/DistributedJob.Domain.pdb
-/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.csproj.AssemblyReference.cache
-/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
-/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.AssemblyInfoInputs.cache
-/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.AssemblyInfo.cs
-/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.csproj.CoreCompileInputs.cache
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/Distribu.E9C03C38.Up2Date
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.dll
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/refint/DistributedJob.Infrastructure.dll
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.pdb
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/ref/DistributedJob.Infrastructure.dll
-/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/obj/Debug/net9.0/DistributedJob.Infrastructure.sourcelink.json

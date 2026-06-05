@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "lui70C9Yy8Y=",
+  "dgSpecHash": "qY+MICua6yI=",
   "success": true,
   "projectFilePath": "/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/DistributedJob.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "/Users/shivaniderkar/.nuget/packages/bcrypt.net-next/4.2.0/bcrypt.net-next.4.2.0.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/9.0.2/microsoft.aspnetcore.authentication.jwtbearer.9.0.2.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/microsoft.bcl.cryptography/10.0.2/microsoft.bcl.cryptography.10.0.2.nupkg.sha512",
     "/Users/shivaniderkar/.nuget/packages/microsoft.entityframeworkcore/9.0.2/microsoft.entityframeworkcore.9.0.2.nupkg.sha512",
     "/Users/shivaniderkar/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.2/microsoft.entityframeworkcore.abstractions.9.0.2.nupkg.sha512",
     "/Users/shivaniderkar/.nuget/packages/microsoft.entityframeworkcore.analyzers/9.0.2/microsoft.entityframeworkcore.analyzers.9.0.2.nupkg.sha512",
@@ -18,8 +21,15 @@
     "/Users/shivaniderkar/.nuget/packages/microsoft.extensions.logging.abstractions/9.0.2/microsoft.extensions.logging.abstractions.9.0.2.nupkg.sha512",
     "/Users/shivaniderkar/.nuget/packages/microsoft.extensions.options/9.0.2/microsoft.extensions.options.9.0.2.nupkg.sha512",
     "/Users/shivaniderkar/.nuget/packages/microsoft.extensions.primitives/9.0.2/microsoft.extensions.primitives.9.0.2.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/microsoft.identitymodel.abstractions/8.19.1/microsoft.identitymodel.abstractions.8.19.1.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.19.1/microsoft.identitymodel.jsonwebtokens.8.19.1.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/microsoft.identitymodel.logging/8.19.1/microsoft.identitymodel.logging.8.19.1.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/microsoft.identitymodel.protocols/8.0.1/microsoft.identitymodel.protocols.8.0.1.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/8.0.1/microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/microsoft.identitymodel.tokens/8.19.1/microsoft.identitymodel.tokens.8.19.1.nupkg.sha512",
     "/Users/shivaniderkar/.nuget/packages/npgsql/9.0.2/npgsql.9.0.2.nupkg.sha512",
-    "/Users/shivaniderkar/.nuget/packages/npgsql.entityframeworkcore.postgresql/9.0.2/npgsql.entityframeworkcore.postgresql.9.0.2.nupkg.sha512"
+    "/Users/shivaniderkar/.nuget/packages/npgsql.entityframeworkcore.postgresql/9.0.2/npgsql.entityframeworkcore.postgresql.9.0.2.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/system.identitymodel.tokens.jwt/8.19.1/system.identitymodel.tokens.jwt.8.19.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,4 +1,6 @@
+using DistributedJob.Application.Interfaces;
 using DistributedJob.Infrastructure.Persistence;
+using DistributedJob.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,9 @@ public static class ServiceCollectionExtensions
 
         services.AddDbContext<DistributedJobDbContext>(options =>
             options.UseNpgsql(connectionString));
+
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ITokenService, JwtTokenService>();
 
         return services;
     }
