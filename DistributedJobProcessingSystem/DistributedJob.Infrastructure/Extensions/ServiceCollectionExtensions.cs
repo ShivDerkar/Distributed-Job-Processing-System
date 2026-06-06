@@ -1,5 +1,7 @@
 using DistributedJob.Application.Interfaces;
+using DistributedJob.Application.Services;
 using DistributedJob.Infrastructure.Persistence;
+using DistributedJob.Infrastructure.Repositories;
 using DistributedJob.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,9 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITokenService, JwtTokenService>();
+
+        services.AddScoped<IJobRepository, JobRepository>();
+        services.AddScoped<IJobService, JobService>();
 
         return services;
     }
