@@ -70,3 +70,6 @@
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Worker/obj/Debug/net9.0/DistributedJob.Worker.pdb
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Worker/obj/Debug/net9.0/DistributedJob.Worker.genruntimeconfig.cache
 /Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Worker/obj/Debug/net9.0/ref/DistributedJob.Worker.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Worker/bin/Debug/net9.0/Pipelines.Sockets.Unofficial.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Worker/bin/Debug/net9.0/StackExchange.Redis.dll
+/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Worker/bin/Debug/net9.0/System.IO.Hashing.dll

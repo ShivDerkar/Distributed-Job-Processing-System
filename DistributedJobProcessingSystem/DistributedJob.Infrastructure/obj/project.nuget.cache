@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qY+MICua6yI=",
+  "dgSpecHash": "iC7C+F7b3ks=",
   "success": true,
   "projectFilePath": "/Users/shivaniderkar/Desktop/Job distribution project/DistributedJobProcessingSystem/DistributedJob.Infrastructure/DistributedJob.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -29,7 +29,10 @@
     "/Users/shivaniderkar/.nuget/packages/microsoft.identitymodel.tokens/8.19.1/microsoft.identitymodel.tokens.8.19.1.nupkg.sha512",
     "/Users/shivaniderkar/.nuget/packages/npgsql/9.0.2/npgsql.9.0.2.nupkg.sha512",
     "/Users/shivaniderkar/.nuget/packages/npgsql.entityframeworkcore.postgresql/9.0.2/npgsql.entityframeworkcore.postgresql.9.0.2.nupkg.sha512",
-    "/Users/shivaniderkar/.nuget/packages/system.identitymodel.tokens.jwt/8.19.1/system.identitymodel.tokens.jwt.8.19.1.nupkg.sha512"
+    "/Users/shivaniderkar/.nuget/packages/pipelines.sockets.unofficial/2.2.16/pipelines.sockets.unofficial.2.2.16.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/stackexchange.redis/2.13.17/stackexchange.redis.2.13.17.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/system.identitymodel.tokens.jwt/8.19.1/system.identitymodel.tokens.jwt.8.19.1.nupkg.sha512",
+    "/Users/shivaniderkar/.nuget/packages/system.io.hashing/10.0.2/system.io.hashing.10.0.2.nupkg.sha512"
   ],
   "logs": []
 }

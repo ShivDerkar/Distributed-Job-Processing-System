@@ -6,12 +6,11 @@ public interface IJobRepository
 {
     Task AddAsync(BackgroundJob job, CancellationToken cancellationToken);
 
-    Task<BackgroundJob?> GetByIdForUserAsync(
+    Task<BackgroundJob?> GetByIdAsync(
         Guid jobId,
-        Guid userId,
         CancellationToken cancellationToken);
 
-    Task<BackgroundJob?> GetByIdForUserForUpdateAsync(
+    Task<BackgroundJob?> GetByIdForUserAsync(
         Guid jobId,
         Guid userId,
         CancellationToken cancellationToken);
@@ -19,8 +18,6 @@ public interface IJobRepository
     Task<List<BackgroundJob>> GetJobsForUserAsync(
         Guid userId,
         CancellationToken cancellationToken);
-
-    Task AddLogAsync(JobLog log, CancellationToken cancellationToken);
 
     Task SaveChangesAsync(CancellationToken cancellationToken);
 }

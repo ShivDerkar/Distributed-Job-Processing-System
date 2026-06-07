@@ -21,6 +21,17 @@ public class JobRepository : IJobRepository
         await _dbContext.Jobs.AddAsync(job, cancellationToken);
     }
 
+    public async Task<BackgroundJob?> GetByIdAsync(
+        Guid jobId,
+        CancellationToken cancellationToken)
+    {
+        return await _dbContext.Jobs
+            .Include(job => job.Logs)
+            .FirstOrDefaultAsync(
+                job => job.Id == jobId,
+                cancellationToken);
+    }
+
     public async Task<BackgroundJob?> GetByIdForUserAsync(
         Guid jobId,
         Guid userId,
@@ -28,17 +39,6 @@ public class JobRepository : IJobRepository
     {
         return await _dbContext.Jobs
             .Include(job => job.Logs)
-            .FirstOrDefaultAsync(
-                job => job.Id == jobId && job.UserId == userId,
-                cancellationToken);
-    }
-
-    public async Task<BackgroundJob?> GetByIdForUserForUpdateAsync(
-        Guid jobId,
-        Guid userId,
-        CancellationToken cancellationToken)
-    {
-        return await _dbContext.Jobs
             .FirstOrDefaultAsync(
                 job => job.Id == jobId && job.UserId == userId,
                 cancellationToken);
@@ -53,13 +53,6 @@ public class JobRepository : IJobRepository
             .Where(job => job.UserId == userId)
             .OrderByDescending(job => job.CreatedAt)
             .ToListAsync(cancellationToken);
-    }
-
-    public async Task AddLogAsync(
-        JobLog log,
-        CancellationToken cancellationToken)
-    {
-        await _dbContext.JobLogs.AddAsync(log, cancellationToken);
     }
 
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
