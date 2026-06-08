@@ -1,3 +1,4 @@
+using DistributedJob.Application.Factories;
 using DistributedJob.Application.Interfaces;
 using DistributedJob.Domain.Entities;
 using DistributedJob.Domain.Enums;
@@ -38,6 +39,7 @@ public class JobWorker : BackgroundService
 
                 var jobQueue = scope.ServiceProvider.GetRequiredService<IJobQueue>();
                 var dbContext = scope.ServiceProvider.GetRequiredService<DistributedJobDbContext>();
+                var jobHandlerFactory = scope.ServiceProvider.GetRequiredService<IJobHandlerFactory>();
 
                 var jobId = await jobQueue.DequeueAsync(stoppingToken);
 
@@ -87,15 +89,32 @@ public class JobWorker : BackgroundService
                     workerName,
                     stoppingToken);
 
-                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                var handler = jobHandlerFactory.GetHandler(job.Type);
 
-                await MarkJobSucceededAsync(
-                    dbContext,
-                    job.Id,
-                    job.Type,
-                    job.InputPayload,
-                    workerName,
+                var processingResult = await handler.HandleAsync(
+                    job,
                     stoppingToken);
+
+                if (processingResult.IsSuccess)
+                {
+                    await MarkJobSucceededAsync(
+                        dbContext,
+                        job.Id,
+                        processingResult.Result ?? "Job completed successfully.",
+                        processingResult.Logs,
+                        workerName,
+                        stoppingToken);
+                }
+                else
+                {
+                    await MarkJobFailedAsync(
+                        dbContext,
+                        job.Id,
+                        processingResult.ErrorMessage ?? "Job failed.",
+                        processingResult.Logs,
+                        workerName,
+                        stoppingToken);
+                }
             }
             catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
             {
@@ -147,8 +166,8 @@ public class JobWorker : BackgroundService
     private static async Task MarkJobSucceededAsync(
         DistributedJobDbContext dbContext,
         Guid jobId,
-        JobType jobType,
-        string inputPayload,
+        string result,
+        List<string> handlerLogs,
         string workerName,
         CancellationToken cancellationToken)
     {
@@ -162,13 +181,66 @@ public class JobWorker : BackgroundService
 
         job.Status = JobStatus.Succeeded;
         job.CompletedAt = DateTime.UtcNow;
-        job.Result = GenerateFakeResult(jobType, inputPayload);
+        job.Result = result;
+
+        foreach (var log in handlerLogs)
+        {
+            dbContext.JobLogs.Add(new JobLog
+            {
+                JobId = jobId,
+                Message = log,
+                Level = "Info",
+                CreatedAt = DateTime.UtcNow
+            });
+        }
 
         dbContext.JobLogs.Add(new JobLog
         {
             JobId = jobId,
             Message = $"{workerName} completed job successfully.",
             Level = "Info",
+            CreatedAt = DateTime.UtcNow
+        });
+
+        await dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    private static async Task MarkJobFailedAsync(
+        DistributedJobDbContext dbContext,
+        Guid jobId,
+        string errorMessage,
+        List<string> handlerLogs,
+        string workerName,
+        CancellationToken cancellationToken)
+    {
+        var job = await dbContext.Jobs
+            .FirstOrDefaultAsync(x => x.Id == jobId, cancellationToken);
+
+        if (job is null)
+        {
+            return;
+        }
+
+        job.Status = JobStatus.Failed;
+        job.CompletedAt = DateTime.UtcNow;
+        job.ErrorMessage = errorMessage;
+
+        foreach (var log in handlerLogs)
+        {
+            dbContext.JobLogs.Add(new JobLog
+            {
+                JobId = jobId,
+                Message = log,
+                Level = "Info",
+                CreatedAt = DateTime.UtcNow
+            });
+        }
+
+        dbContext.JobLogs.Add(new JobLog
+        {
+            JobId = jobId,
+            Message = $"{workerName} failed job: {errorMessage}",
+            Level = "Error",
             CreatedAt = DateTime.UtcNow
         });
 
@@ -191,26 +263,5 @@ public class JobWorker : BackgroundService
         });
 
         await dbContext.SaveChangesAsync(cancellationToken);
-    }
-
-    private static string GenerateFakeResult(JobType jobType, string inputPayload)
-    {
-        return jobType switch
-        {
-            JobType.CsvSummary =>
-                $"CSV summary completed for input: {inputPayload}",
-
-            JobType.ReportGeneration =>
-                $"Report generation completed for input: {inputPayload}",
-
-            JobType.EmailNotification =>
-                $"Email notification simulated for input: {inputPayload}",
-
-            JobType.SecurityScan =>
-                $"Security scan simulation completed for input: {inputPayload}",
-
-            _ =>
-                $"Job completed for input: {inputPayload}"
-        };
     }
 }

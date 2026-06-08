@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
+using DistributedJob.Application.Factories;
+using DistributedJob.Application.JobHandlers;
 
 namespace DistributedJob.Infrastructure.Extensions;
 
@@ -39,6 +41,13 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IJobService, JobService>();
         services.AddScoped<IJobQueue, RedisJobQueue>();
 
+
+        services.AddScoped<IJobHandler, CsvSummaryJobHandler>();
+        services.AddScoped<IJobHandler, ReportGenerationJobHandler>();
+        services.AddScoped<IJobHandler, EmailNotificationJobHandler>();
+        services.AddScoped<IJobHandler, SecurityScanJobHandler>();
+
+        services.AddScoped<IJobHandlerFactory, JobHandlerFactory>();
         return services;
     }
 }
