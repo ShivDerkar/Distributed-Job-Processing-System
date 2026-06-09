@@ -11,6 +11,19 @@ public class SecurityScanJobHandler : IJobHandler
         BackgroundJob job,
         CancellationToken cancellationToken)
     {
+        if (job.InputPayload.Contains("forceFail", StringComparison.OrdinalIgnoreCase))
+        {
+            return JobProcessingResult.Failure(
+                "Security scan failed because a critical simulated vulnerability was found.",
+                "Security scan initialized.",
+                "Critical vulnerability simulation triggered.");
+        }
+
+        if (job.InputPayload.Contains("forceTimeout", StringComparison.OrdinalIgnoreCase))
+        {
+            await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
+        }
+
         await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
 
         var result =

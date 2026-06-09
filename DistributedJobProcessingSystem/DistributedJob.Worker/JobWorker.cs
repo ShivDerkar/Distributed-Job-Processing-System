@@ -1,5 +1,6 @@
 using DistributedJob.Application.Factories;
 using DistributedJob.Application.Interfaces;
+using DistributedJob.Application.JobHandlers;
 using DistributedJob.Domain.Entities;
 using DistributedJob.Domain.Enums;
 using DistributedJob.Infrastructure.Persistence;
@@ -26,8 +27,15 @@ public class JobWorker : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var workerName = _configuration["Worker:Name"] ?? "Worker-1";
+
         var pollingDelaySeconds = int.Parse(
             _configuration["Worker:PollingDelaySeconds"] ?? "3");
+
+        var jobTimeoutSeconds = int.Parse(
+            _configuration["Worker:JobTimeoutSeconds"] ?? "10");
+
+        var retryDelaySeconds = int.Parse(
+            _configuration["Worker:RetryDelaySeconds"] ?? "3");
 
         _logger.LogInformation("{WorkerName} started.", workerName);
 
@@ -60,6 +68,7 @@ public class JobWorker : BackgroundService
                     jobId);
 
                 var job = await dbContext.Jobs
+                    .AsNoTracking()
                     .FirstOrDefaultAsync(x => x.Id == jobId.Value, stoppingToken);
 
                 if (job is null)
@@ -83,6 +92,18 @@ public class JobWorker : BackgroundService
                     continue;
                 }
 
+                if (job.Status == JobStatus.Succeeded || job.Status == JobStatus.Failed)
+                {
+                    await AddJobLogAsync(
+                        dbContext,
+                        job.Id,
+                        $"{workerName} skipped job because it was already {job.Status}.",
+                        "Warning",
+                        stoppingToken);
+
+                    continue;
+                }
+
                 await MarkJobRunningAsync(
                     dbContext,
                     job.Id,
@@ -91,8 +112,10 @@ public class JobWorker : BackgroundService
 
                 var handler = jobHandlerFactory.GetHandler(job.Type);
 
-                var processingResult = await handler.HandleAsync(
+                var processingResult = await ExecuteHandlerWithTimeoutAsync(
+                    handler,
                     job,
+                    jobTimeoutSeconds,
                     stoppingToken);
 
                 if (processingResult.IsSuccess)
@@ -107,12 +130,14 @@ public class JobWorker : BackgroundService
                 }
                 else
                 {
-                    await MarkJobFailedAsync(
+                    await HandleJobFailureAsync(
                         dbContext,
+                        jobQueue,
                         job.Id,
                         processingResult.ErrorMessage ?? "Job failed.",
                         processingResult.Logs,
                         workerName,
+                        retryDelaySeconds,
                         stoppingToken);
                 }
             }
@@ -135,6 +160,34 @@ public class JobWorker : BackgroundService
         _logger.LogInformation("{WorkerName} stopped.", workerName);
     }
 
+    private static async Task<JobProcessingResult> ExecuteHandlerWithTimeoutAsync(
+        IJobHandler handler,
+        BackgroundJob job,
+        int timeoutSeconds,
+        CancellationToken stoppingToken)
+    {
+        using var timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
+
+        timeoutCts.CancelAfter(TimeSpan.FromSeconds(timeoutSeconds));
+
+        try
+        {
+            return await handler.HandleAsync(job, timeoutCts.Token);
+        }
+        catch (OperationCanceledException) when (!stoppingToken.IsCancellationRequested)
+        {
+            return JobProcessingResult.Failure(
+                $"Job timed out after {timeoutSeconds} seconds.",
+                "Job processing timeout reached.");
+        }
+        catch (Exception exception)
+        {
+            return JobProcessingResult.Failure(
+                exception.Message,
+                "Handler threw an unexpected exception.");
+        }
+    }
+
     private static async Task MarkJobRunningAsync(
         DistributedJobDbContext dbContext,
         Guid jobId,
@@ -151,6 +204,7 @@ public class JobWorker : BackgroundService
 
         job.Status = JobStatus.Running;
         job.StartedAt = DateTime.UtcNow;
+        job.CompletedAt = null;
 
         dbContext.JobLogs.Add(new JobLog
         {
@@ -182,6 +236,7 @@ public class JobWorker : BackgroundService
         job.Status = JobStatus.Succeeded;
         job.CompletedAt = DateTime.UtcNow;
         job.Result = result;
+        job.ErrorMessage = null;
 
         foreach (var log in handlerLogs)
         {
@@ -205,12 +260,14 @@ public class JobWorker : BackgroundService
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    private static async Task MarkJobFailedAsync(
+    private static async Task HandleJobFailureAsync(
         DistributedJobDbContext dbContext,
+        IJobQueue jobQueue,
         Guid jobId,
         string errorMessage,
         List<string> handlerLogs,
         string workerName,
+        int retryDelaySeconds,
         CancellationToken cancellationToken)
     {
         var job = await dbContext.Jobs
@@ -221,25 +278,59 @@ public class JobWorker : BackgroundService
             return;
         }
 
-        job.Status = JobStatus.Failed;
-        job.CompletedAt = DateTime.UtcNow;
-        job.ErrorMessage = errorMessage;
-
         foreach (var log in handlerLogs)
         {
             dbContext.JobLogs.Add(new JobLog
             {
                 JobId = jobId,
                 Message = log,
-                Level = "Info",
+                Level = "Warning",
                 CreatedAt = DateTime.UtcNow
             });
         }
 
+        if (job.RetryCount < job.MaxRetries)
+        {
+            job.RetryCount++;
+            job.Status = JobStatus.Pending;
+            job.ErrorMessage = errorMessage;
+            job.CompletedAt = null;
+
+            dbContext.JobLogs.Add(new JobLog
+            {
+                JobId = jobId,
+                Message = $"{workerName} failed job attempt. Reason: {errorMessage}",
+                Level = "Error",
+                CreatedAt = DateTime.UtcNow
+            });
+
+            dbContext.JobLogs.Add(new JobLog
+            {
+                JobId = jobId,
+                Message = $"Retry {job.RetryCount} of {job.MaxRetries} scheduled.",
+                Level = "Warning",
+                CreatedAt = DateTime.UtcNow
+            });
+
+            await dbContext.SaveChangesAsync(cancellationToken);
+
+            await Task.Delay(
+                TimeSpan.FromSeconds(retryDelaySeconds),
+                cancellationToken);
+
+            await jobQueue.EnqueueAsync(jobId, cancellationToken);
+
+            return;
+        }
+
+        job.Status = JobStatus.Failed;
+        job.CompletedAt = DateTime.UtcNow;
+        job.ErrorMessage = errorMessage;
+
         dbContext.JobLogs.Add(new JobLog
         {
             JobId = jobId,
-            Message = $"{workerName} failed job: {errorMessage}",
+            Message = $"{workerName} marked job as Failed after reaching max retries. Reason: {errorMessage}",
             Level = "Error",
             CreatedAt = DateTime.UtcNow
         });

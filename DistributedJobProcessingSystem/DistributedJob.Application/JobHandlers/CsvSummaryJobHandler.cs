@@ -11,6 +11,19 @@ public class CsvSummaryJobHandler : IJobHandler
         BackgroundJob job,
         CancellationToken cancellationToken)
     {
+        if (job.InputPayload.Contains("forceFail", StringComparison.OrdinalIgnoreCase))
+        {
+            return JobProcessingResult.Failure(
+                "CSV summary failed because forceFail was provided.",
+                "CSV validation failed.",
+                "CSV handler returned a simulated failure.");
+        }
+
+        if (job.InputPayload.Contains("forceTimeout", StringComparison.OrdinalIgnoreCase))
+        {
+            await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
+        }
+
         await Task.Delay(TimeSpan.FromSeconds(3), cancellationToken);
 
         var result =
