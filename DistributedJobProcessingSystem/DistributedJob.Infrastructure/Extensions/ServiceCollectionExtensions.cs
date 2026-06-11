@@ -40,7 +40,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IJobRepository, JobRepository>();
         services.AddScoped<IJobService, JobService>();
         services.AddScoped<IJobQueue, RedisJobQueue>();
-
+        services.AddScoped<IWorkerNodeRepository, WorkerNodeRepository>();
+        services.AddScoped<IWorkerMonitoringService, WorkerMonitoringService>();
 
         services.AddScoped<IJobHandler, CsvSummaryJobHandler>();
         services.AddScoped<IJobHandler, ReportGenerationJobHandler>();

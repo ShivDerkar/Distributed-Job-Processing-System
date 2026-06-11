@@ -37,8 +37,24 @@ public class JobWorker : BackgroundService
         var retryDelaySeconds = int.Parse(
             _configuration["Worker:RetryDelaySeconds"] ?? "3");
 
+        var heartbeatIntervalSeconds = int.Parse(
+            _configuration["Worker:HeartbeatIntervalSeconds"] ?? "5");
+
         _logger.LogInformation("{WorkerName} started.", workerName);
 
+
+        using (var startupScope = _scopeFactory.CreateScope())
+{
+    var startupDbContext =
+        startupScope.ServiceProvider.GetRequiredService<DistributedJobDbContext>();
+
+    await RegisterOrUpdateWorkerAsync(
+        startupDbContext,
+        workerName,
+        WorkerStatus.Online,
+        null,
+        stoppingToken);
+}
         while (!stoppingToken.IsCancellationRequested)
         {
             try
@@ -66,19 +82,34 @@ public class JobWorker : BackgroundService
                     "{WorkerName} picked job {JobId} from Redis.",
                     workerName,
                     jobId);
+                await RegisterOrUpdateWorkerAsync(
+    dbContext,
+    workerName,
+    WorkerStatus.Busy,
+    jobId,
+    stoppingToken);
 
                 var job = await dbContext.Jobs
                     .AsNoTracking()
                     .FirstOrDefaultAsync(x => x.Id == jobId.Value, stoppingToken);
 
-                if (job is null)
-                {
-                    _logger.LogWarning(
-                        "Job {JobId} was found in Redis but not in PostgreSQL.",
-                        jobId);
+                if (jobId is null)
+{
+    await RegisterOrUpdateWorkerAsync(
+        dbContext,
+        workerName,
+        WorkerStatus.Online,
+        null,
+        stoppingToken);
 
-                    continue;
-                }
+    _logger.LogInformation("{WorkerName} found no pending jobs.", workerName);
+
+    await Task.Delay(
+        TimeSpan.FromSeconds(pollingDelaySeconds),
+        stoppingToken);
+
+    continue;
+}
 
                 if (job.Status == JobStatus.Cancelled)
                 {
@@ -140,6 +171,12 @@ public class JobWorker : BackgroundService
                         retryDelaySeconds,
                         stoppingToken);
                 }
+                await RegisterOrUpdateWorkerAsync(
+    dbContext,
+    workerName,
+    WorkerStatus.Online,
+    null,
+    stoppingToken);
             }
             catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
             {
@@ -156,7 +193,18 @@ public class JobWorker : BackgroundService
                     stoppingToken);
             }
         }
+        using (var shutdownScope = _scopeFactory.CreateScope())
+{
+    var shutdownDbContext =
+        shutdownScope.ServiceProvider.GetRequiredService<DistributedJobDbContext>();
 
+    await RegisterOrUpdateWorkerAsync(
+        shutdownDbContext,
+        workerName,
+        WorkerStatus.Offline,
+        null,
+        CancellationToken.None);
+}
         _logger.LogInformation("{WorkerName} stopped.", workerName);
     }
 
@@ -355,4 +403,36 @@ public class JobWorker : BackgroundService
 
         await dbContext.SaveChangesAsync(cancellationToken);
     }
+    private static async Task RegisterOrUpdateWorkerAsync(
+    DistributedJobDbContext dbContext,
+    string workerName,
+    WorkerStatus status,
+    Guid? currentJobId,
+    CancellationToken cancellationToken)
+{
+    var worker = await dbContext.WorkerNodes
+        .FirstOrDefaultAsync(x => x.WorkerName == workerName, cancellationToken);
+
+    if (worker is null)
+    {
+        worker = new WorkerNode
+        {
+            WorkerName = workerName,
+            Status = status,
+            CurrentJobId = currentJobId,
+            LastHeartbeatAt = DateTime.UtcNow,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        dbContext.WorkerNodes.Add(worker);
+    }
+    else
+    {
+        worker.Status = status;
+        worker.CurrentJobId = currentJobId;
+        worker.LastHeartbeatAt = DateTime.UtcNow;
+    }
+
+    await dbContext.SaveChangesAsync(cancellationToken);
+}
 }
